@@ -1,6 +1,609 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>知行 AIconsultant｜产品主页面 Demo</title><style>
-:root{--ink:#111827;--muted:#667085;--line:#e5e7eb;--blue:#3467ff;--green:#10a37f;--bg:#f6f7fb}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);background:var(--bg)}a{text-decoration:none;color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.brand{font-weight:900}.nav a{margin-left:14px;color:#475467}.hero{border-radius:28px;padding:34px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(31,41,55,.09);margin-bottom:20px}h1{font-size:42px;margin:0 0 12px}.sub{color:var(--muted);font-size:17px;line-height:1.7}.grid{display:grid;grid-template-columns:320px 1fr;gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}.btn{display:inline-flex;border-radius:14px;padding:12px 16px;font-weight:800;background:var(--ink);color:#fff;margin-right:10px;margin-top:12px}.btn2{background:#eef2ff;color:#2441b8}.metric{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric div,.todo,.file{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}.todo{display:flex;justify-content:space-between;align-items:center}.check{width:22px;height:22px;border-radius:50%;border:2px solid #94a3b8}.done .check{background:var(--blue);border-color:var(--blue)}.done{opacity:.75}.bar{height:10px;background:#e5e7eb;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--blue);border-radius:99px}.green span,.greenbar{background:var(--green)!important}.chat{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:12px}.answer{background:#ecfdf5;border-color:#a7f3d0}.input{height:48px;border:1px solid var(--line);border-radius:14px;background:#fff;color:#98a2b3;display:flex;align-items:center;padding:0 14px;margin-top:14px}@media(max-width:860px){.grid{grid-template-columns:1fr}.metric{grid-template-columns:1fr}h1{font-size:34px}.top{align-items:flex-start;flex-direction:column}.nav a{margin-left:0;margin-right:12px}}
-</style></head><body><div class="wrap"><div class="top"><div class="brand">知行 AIconsultant｜产品主页面 Demo</div><div class="nav"><a href="/duyuhang-portfolio/">作品集首页</a><a href="/duyuhang-portfolio/running-up/">Running Up 介绍</a><a href="/duyuhang-portfolio/zhixing/">知行介绍</a></div></div>
-<section class="hero"><h1>知行 AIconsultant 主页面</h1><p class="sub">这是校园事务 AI 助手主界面 Demo：导入通知后，系统把复杂文本转成重点信息、待办和可追溯问答。</p><a class="btn btn2" href="/duyuhang-portfolio/zhixing/">返回项目介绍</a></section>
-<div class="grid"><aside class="card"><h2>文件夹</h2><div class="file"><b>竞赛通知</b><br><span class="sub">3 个文件 · 5 个待办</span></div><div class="file"><b>课程事务</b><br><span class="sub">2 个文件 · 2 个待办</span></div><div class="file"><b>学院通知</b><br><span class="sub">4 个文件 · 6 个待办</span></div><a class="btn">上传通知</a></aside><main class="card"><h2>通知解析</h2><div class="file"><b>大学生创新创业竞赛报名通知.pdf</b><br><span class="sub">已识别：截止时间、报名对象、材料要求、提交方式</span></div><h2>AI 待办</h2><div class="todo"><span>9 月 20 日前确认组队成员</span><span class="check"></span></div><div class="todo"><span>9 月 25 日前完成项目简介</span><span class="check"></span></div><div class="todo"><span>9 月 30 日前提交报名表</span><span class="check"></span></div><h2>通知问答</h2><div class="chat">问：需要提交哪些材料？</div><div class="chat answer">答：报名表、项目简介、成员信息表。依据：原文第 2 段“报名材料”部分。</div><div class="input">继续提问，例如：截止日期是哪天？</div></main></div>
-</div></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>知行 AIconsultant · 校园事务 AI 助手</title>
+  <style>
+    :root {
+      --bg: #f7f8fc; --panel: #fff; --ink: #182230; --muted: #7c8797;
+      --line: #e9edf3; --primary: #5b63f6; --primary-2: #7b67f8;
+      --green: #26a269; --amber: #d78a20; --red: #e45d6f; --shadow: 0 18px 50px rgba(32, 44, 80, .08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    button, textarea, input, select { font: inherit; }
+    button { cursor: pointer; border: 0; }
+    .app { min-height: 100vh; display: grid; grid-template-columns: 246px 1fr; }
+    aside { background: #151b2b; color: #aab3c7; padding: 28px 18px; display: flex; flex-direction: column; }
+    .brand { display: flex; align-items: center; gap: 12px; padding: 0 12px 38px; color: #fff; font-weight: 800; font-size: 18px; letter-spacing: .3px; }
+    .brand-mark { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; }
+    .brand-mark img { width: 100%; height: 100%; display: block; }
+    .nav-title { font-size: 11px; color: #68738a; padding: 0 13px 10px; letter-spacing: 1px; }
+    .nav { display: grid; gap: 7px; }
+    .nav button { text-align: left; color: #aab3c7; background: transparent; padding: 12px 13px; border-radius: 10px; font-size: 14px; }
+    .nav button:hover, .nav button.active { color: #fff; background: rgba(113, 107, 255, .18); }
+    .nav button span { display: inline-block; width: 24px; color: #7d8aa7; }
+    .side-bottom { margin-top: auto; border-top: 1px solid #293146; padding: 19px 12px 0; font-size: 12px; line-height: 1.7; color: #707b92; }
+    main { min-width: 0; padding: 27px 38px 48px; max-width: 1500px; width: 100%; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .eyebrow { color: var(--primary); font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+    h1 { margin: 5px 0 0; font-size: 28px; letter-spacing: -.8px; }
+    .top-actions { display: flex; gap: 10px; align-items: center; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #d9ddff; color: #5a5fe3; display: grid; place-items: center; font-weight: 700; }
+    .btn { border-radius: 9px; padding: 10px 15px; font-size: 13px; font-weight: 700; transition: .2s; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 7px 16px rgba(91,99,246,.22); }
+    .btn-light { color: #536074; background: #f0f2f7; }
+    .btn-ghost { color: var(--primary); background: transparent; padding-left: 0; padding-right: 0; }
+    .page { display: none; } .page.active { display: block; }
+    .hero { background: linear-gradient(110deg, #edf0ff, #f7f1ff); border: 1px solid #e2e4ff; border-radius: 18px; padding: 23px 26px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .hero h2 { margin: 0 0 7px; font-size: 18px; } .hero p { color: #747b99; margin: 0; font-size: 13px; }
+    .hero-emoji { font-size: 42px; opacity: .8; padding-right: 19px; }
+    .ai-tip { margin: 0 0 18px; padding: 14px 16px; border-radius: 14px; background: #fff7f0; border: 1px solid #ffe0c2; color: #8b5b22; display: flex; gap: 10px; align-items: flex-start; }
+    .ai-tip .spark { width: 28px; height: 28px; border-radius: 8px; background: #ffedd7; display: grid; place-items: center; flex: 0 0 auto; color: #d98328; }
+    .ai-tip strong { display:block; margin-bottom: 3px; color: #6f4518; }
+    .soon-urgent { color: var(--red) !important; }
+    .soon-urgent + .stat-foot { color: var(--red) !important; }
+    .soon-urgent-label { color: var(--red); font-weight: 700; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 22px; }
+    .stat, .card { background: var(--panel); border: 1px solid var(--line); border-radius: 15px; box-shadow: 0 5px 17px rgba(34, 42, 74, .025); }
+    .stat { padding: 18px 19px; } .stat-label { color: var(--muted); font-size: 12px; } .stat-number { margin: 9px 0 5px; font-size: 28px; font-weight: 800; } .stat-foot { font-size: 11px; color: var(--muted); } .stat-foot.good { color: var(--green); }
+    .two-col { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(360px, .84fr); gap: 20px; }
+    .card { padding: 22px; } .card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 17px; } .card-title { font-weight: 800; font-size: 15px; } .card-sub { color: var(--muted); font-size: 12px; }
+    .dropzone { border: 1.5px dashed #b9c0f5; background: #f8f8ff; border-radius: 11px; padding: 15px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; transition: .2s; }
+    .dropzone.dragover { border-color: var(--primary); background: #eef0ff; transform: translateY(-1px); }
+    .drop-icon { width: 34px; height: 34px; border-radius: 9px; background: #e8eaff; color: var(--primary); display: grid; place-items: center; font-size: 17px; flex: 0 0 auto; }
+    .drop-copy { flex: 1; min-width: 0; } .drop-title { font-weight: 700; font-size: 12px; color: #3e4860; } .drop-help { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .file-name { color: var(--primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    textarea { width: 100%; resize: vertical; min-height: 235px; border: 1px solid #e1e5ee; border-radius: 11px; padding: 15px; color: #445066; line-height: 1.75; outline: none; background: #fbfcfe; }
+    textarea:focus, input:focus, select:focus { border-color: #9ba0fb; box-shadow: 0 0 0 3px rgba(91,99,246,.08); }
+    .input-foot { display:flex; justify-content:space-between; align-items:center; margin-top: 12px; } .hint { color: var(--muted); font-size: 11px; }
+    .notice-row { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); align-items: center; } .notice-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .notice-icon { width: 35px; height: 35px; border-radius: 10px; background: #eef0ff; display:grid; place-items:center; color:var(--primary); }
+    .notice-main { min-width: 0; flex: 1; } .notice-name { font-size: 13px; font-weight: 700; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .notice-meta { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .tag { display:inline-flex; align-items:center; border-radius: 5px; padding: 4px 7px; font-size: 10px; font-weight: 700; } .tag.red { background:#fff0f1; color:var(--red); } .tag.yellow { background:#fff6e7; color:var(--amber); } .tag.green { background:#eaf8f0; color:var(--green); } .tag.blue { background:#eef0ff; color:var(--primary); }
+    .parse-layout { display:grid; grid-template-columns: minmax(0, 1fr) 360px; gap:20px; align-items:start; } .section-label { color:#8a94a7; font-size:11px; font-weight:700; letter-spacing:.5px; margin: 21px 0 10px; text-transform:uppercase; }
+    .field-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; } .field label { display:block; color:var(--muted); font-size:11px; margin-bottom:6px; } input, select { width:100%; border:1px solid #e1e5ee; border-radius:8px; padding:10px 11px; color:#354157; outline:none; background:white; }
+    .summary { background:#fafbfe; border:1px solid var(--line); border-radius:10px; padding:13px; color:#536074; font-size:13px; line-height:1.7; }
+    .confidence { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; background:#eef7ff; border:1px solid #d8e9ff; border-radius:10px; margin-top:12px; color:#3f5f86; font-size:12px; }
+    .confidence strong { color:#214f83; }
+    .mini-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top:12px; }
+    .mini-stat { background:#fff; border:1px solid var(--line); border-radius:10px; padding:11px 12px; }
+    .mini-stat .k { color:var(--muted); font-size:11px; } .mini-stat .v { margin-top:5px; font-size:13px; font-weight:700; line-height:1.35; }
+    .key-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top:12px; }
+    .key-card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 13px; }
+    .key-card .k { color:var(--muted); font-size:11px; margin-bottom:6px; }
+    .key-card .v { font-size:13px; line-height:1.5; font-weight:700; color:#334155; white-space:pre-wrap; }
+    .timeline { display:grid; gap:8px; }
+    .timeline-item { display:flex; gap:10px; align-items:flex-start; background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+    .timeline-dot { width:9px; height:9px; border-radius:50%; background:var(--primary); margin-top:5px; flex:0 0 auto; }
+    .timeline-text { font-size:12px; color:#445066; line-height:1.55; }
+    .warning-list { display:grid; gap:8px; }
+    .warning { background:#fff6e7; border:1px solid #f4d49a; border-radius:10px; padding:10px 12px; color:#835d1d; font-size:12px; line-height:1.55; }
+    .evidence-list { display:grid; gap:10px; }
+    .evidence { background:#fffaf0; border:1px solid #f1dfb0; border-radius:10px; padding:11px 12px; color:#7a6235; font-size:12px; line-height:1.6; }
+    .inspo { margin-top: 12px; background: linear-gradient(135deg, #f7f4ff, #f5fbff); border: 1px solid #e2dfff; border-radius: 12px; padding: 14px; }
+    .inspo-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+    .inspo-title { font-weight:800; font-size:14px; }
+    .inspo-sub { color:var(--muted); font-size:11px; margin-top:3px; }
+    .idea-list { display:grid; gap:8px; }
+    .idea { background:#fff; border:1px solid #e7e6ff; border-radius:9px; padding:10px 11px; font-size:12px; color:#4a5470; line-height:1.55; }
+    .list-item { display:flex; gap:10px; align-items:flex-start; padding:11px 0; border-bottom:1px solid var(--line); } .list-item:last-child { border-bottom:0; }
+    .check { width:18px; height:18px; border:1.5px solid #c8cfdd; border-radius:5px; margin-top:1px; flex:0 0 auto; } .check.done { background:var(--green); border-color:var(--green); color:white; text-align:center; font-size:12px; } .item-text { flex:1; font-size:13px; line-height:1.4; } .item-meta { color:var(--muted); font-size:11px; margin-top:4px; }
+    .quote { background:#fff9e9; border-left:3px solid #e8b84d; padding:11px 13px; color:#77643a; font-size:12px; line-height:1.65; border-radius: 0 7px 7px 0; margin-top: 13px; }
+    .qa-box { display:flex; gap:9px; margin-top: 14px; } .qa-box input { flex:1; }
+    .chat { max-height: 210px; overflow:auto; } .bubble { padding:10px 12px; border-radius:10px; font-size:12px; line-height:1.65; margin-bottom:9px; } .bubble.user { background:#f0f1ff; color:#4c53be; margin-left:22px; } .bubble.ai { background:#f6f7f9; color:#536074; margin-right:16px; }
+    .toolbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; } .filter { width:auto; padding:8px 10px; font-size:12px; }
+    .notice-tools { display:grid; gap:12px; margin-bottom: 14px; }
+    .search-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .search-row input { flex:1; min-width: 220px; }
+    .folder-bar { display:flex; gap:8px; flex-wrap:wrap; }
+    .folder-chip { border:1px solid #dfe4ef; background:#f8fafc; color:#516072; border-radius:999px; padding:7px 11px; font-size:12px; font-weight:700; }
+    .folder-chip.active { background: #eef0ff; border-color:#cfd4ff; color: var(--primary); }
+    .folder-chip small { color: inherit; opacity:.7; font-weight:600; }
+    .folder-chip.add { color: var(--primary); border-style:dashed; }
+    .notice-tools { display:grid; gap:12px; margin-bottom: 14px; }
+    .search-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .search-row input { flex:1; min-width: 220px; }
+    .folder-bar { display:flex; gap:8px; flex-wrap:wrap; }
+    .folder-chip { border:1px solid #dfe4ef; background:#f8fafc; color:#516072; border-radius:999px; padding:7px 11px; font-size:12px; font-weight:700; }
+    .folder-chip.active { background: #eef0ff; border-color:#cfd4ff; color: var(--primary); }
+    .folder-chip small { color: inherit; opacity:.7; font-weight:600; }
+    .folder-chip.add { color: var(--primary); border-style:dashed; }
+    .todo-date { font-weight:800; font-size:14px; margin: 20px 0 9px; } .todo-date:first-child { margin-top:0; } .todo-line { display:flex; align-items:center; gap:11px; padding: 14px 0; border-bottom:1px solid var(--line); } .todo-title { flex:1; font-size:13px; } .todo-title.done-text { text-decoration:line-through; color:#a0a8b6; } .todo-source { color:var(--muted); font-size:11px; }
+    .empty { text-align:center; color:var(--muted); padding:40px 10px; font-size:13px; }
+    .toast { position:fixed; right:26px; bottom:24px; background:#182230; color:white; padding:12px 16px; border-radius:9px; font-size:13px; opacity:0; transform:translateY(10px); transition:.25s; pointer-events:none; } .toast.show { opacity:1; transform:translateY(0); }
+    @media (max-width: 1050px) { .app { grid-template-columns: 78px 1fr; } aside { padding:22px 11px; } .brand { padding:0 8px 35px; gap:8px; } .brand-text { font-size: 13px; line-height: 1.2; } .nav-title, .nav button:not(.active)::after, .side-bottom { display:none; } .nav button { text-align:center; } .nav button span { width:auto; } main { padding:25px; } .two-col, .parse-layout { grid-template-columns:1fr; } }
+    @media (max-width: 700px) { .app { display:block; } aside { position:sticky; top:0; z-index:2; padding:10px; flex-direction:row; align-items:center; gap:10px; } .brand { padding:0 8px; gap:8px; } .brand-text { font-size: 13px; line-height: 1.2; max-width: 130px; } .nav { display:flex; margin-left:auto; } .nav button { padding:9px 11px; } .nav button span { margin:0; } main { padding:18px 14px 40px; } .topbar { align-items:flex-start; } .top-actions .btn-light { display:none; } .grid-4 { grid-template-columns:1fr 1fr; } .hero { padding:18px; } .hero-emoji { display:none; } .field-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand"><div class="brand-mark"><img src="logo-a-v2.svg" alt="知行 AIconsultant 标识"></div><div class="brand-text">知行 AIconsultant</div></div>
+      <div class="nav-title">WORKSPACE</div>
+      <nav class="nav">
+        <button class="active" data-page="home"><span>⌂</span>工作台</button>
+        <button data-page="notices"><span>▤</span>通知库</button>
+        <button data-page="todos"><span>✓</span>本周待办</button>
+      </nav>
+      <div class="side-bottom">AI 结果仅供辅助<br>重要信息请以通知原文为准</div>
+    </aside>
+    <main>
+      <div class="topbar">
+        <div>
+          <div class="eyebrow" id="timeLabel">WED · SEP 02, 2026</div>
+          <h1 id="pageTitle">开始整理校园事务</h1>
+          <div class="card-sub" id="pageSubTitle">把通知变成下一步行动</div>
+        </div>
+        <div class="top-actions"><button class="btn btn-light" id="clearData">清空本地数据</button><div class="avatar">同</div></div>
+      </div>
+
+      <section class="page active" id="home">
+        <div class="hero"><div><h2>把通知变成下一步行动</h2><p>粘贴一段校园通知，知行会帮你提取截止时间、材料和待办。</p></div><div class="hero-emoji">✦</div></div>
+        <div class="grid-4">
+          <div class="stat"><div class="stat-label">本周待办</div><div class="stat-number" id="statTodo">0</div><div class="stat-foot">件任务待处理</div></div>
+          <div class="stat"><div class="stat-label">即将截止</div><div class="stat-number" id="statSoon">0</div><div class="stat-foot" id="statSoonFoot">未来 7 天内</div></div>
+          <div class="stat"><div class="stat-label">已完成</div><div class="stat-number" id="statDone">0</div><div class="stat-foot good">保持这个节奏</div></div>
+          <div class="stat"><div class="stat-label">已整理通知</div><div class="stat-number" id="statNotice">0</div><div class="stat-foot">保存在本地浏览器</div></div>
+        </div>
+        <div class="ai-tip" id="homeTip">
+          <div class="spark">✦</div>
+          <div><strong>AI 建议</strong><span id="homeTipText">先把通知拖进来，系统会自动帮你提取要点、生成待办和参考建议。</span></div>
+        </div>
+        <div class="two-col">
+          <div class="card">
+            <div class="card-head"><div><div class="card-title">新建通知解析</div><div class="card-sub">支持粘贴可复制的文字通知</div></div><span class="tag blue">MVP</span></div>
+            <div class="dropzone" id="dropzone">
+              <div class="drop-icon">⇧</div>
+              <div class="drop-copy"><div class="drop-title" id="dropTitle">拖入通知文件即可自动解析</div><div class="drop-help" id="dropHelp">支持 .txt / .md / .csv / .json / .pdf / .docx；也可以直接粘贴文字</div></div>
+              <button class="btn btn-light" id="chooseFile" type="button">选择文件</button>
+              <input id="fileInput" type="file" accept=".txt,.md,.csv,.json,.pdf,.doc,.docx" hidden>
+            </div>
+            <textarea id="noticeInput" placeholder="例如：关于开展 2026 年大学生创新创业训练计划立项申报的通知……"></textarea>
+            <div class="input-foot"><span class="hint" id="charCount">拖入文件后会自动解析 · 也可粘贴文字</span><button class="btn btn-primary" id="parseBtn">开始解析 →</button></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div><div class="card-title">最近整理</div><div class="card-sub">你的通知都保存在这里</div></div><button class="btn btn-ghost" data-page-link="notices">查看全部</button></div>
+            <div id="recentNotices"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="notices">
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">通知库</div><div class="card-sub">已整理的校园通知</div></div><button class="btn btn-primary" data-page-link="home">＋ 新建解析</button></div>
+          <div class="notice-tools">
+            <div class="search-row">
+              <input id="noticeSearch" placeholder="搜索通知标题、发布单位、摘要、材料或待办">
+              <button class="btn btn-light" id="clearSearch" type="button">清除</button>
+              <button class="btn btn-light" id="addFolderBtn" type="button">＋ 文件夹</button>
+            </div>
+            <div class="folder-bar" id="folderBar"></div>
+          </div>
+          <div id="noticeList"></div>
+        </div>
+      </section>
+
+      <section class="page" id="todos">
+        <div class="card">
+          <div class="card-head"><div><div class="card-title">本周待办</div><div class="card-sub">把重要的事，一件件完成</div></div><div class="toolbar"><select class="filter" id="todoFilter"><option value="all">全部任务</option><option value="todo">待完成</option><option value="done">已完成</option></select></div></div>
+          <div id="todoList"></div>
+        </div>
+      </section>
+
+      <section class="page" id="detail">
+        <div class="parse-layout">
+          <div class="card">
+            <div class="card-head"><div><div class="card-title">通知结构化结果</div><div class="card-sub">AI 已提取关键信息，请确认后生成待办</div></div><span class="tag yellow">待确认</span></div>
+            <div class="section-label">基本信息</div>
+          <div class="field-grid">
+              <div class="field"><label>通知标题</label><input id="fTitle"></div>
+              <div class="field"><label>通知类型</label><select id="fType"><option>竞赛活动</option><option>奖学金申请</option><option>社团活动</option><option>课程/教务</option><option>其他</option></select></div>
+              <div class="field"><label>发布单位</label><input id="fPublisher"></div>
+              <div class="field"><label>重要程度</label><select id="fImportance"><option value="高">高</option><option value="中">中</option><option value="低">低</option></select></div>
+              <div class="field"><label>归属文件夹</label><select id="fFolder"></select></div>
+            </div>
+            <div class="section-label">摘要</div><div class="summary" id="fSummary"></div>
+            <div class="confidence">
+              <div><strong>可信度提示：</strong>已从原文中抓取标题、截止时间、对象和材料；若字段不完整，会在这里保留“待确认”。</div>
+              <div class="tag blue">可编辑后确认</div>
+            </div>
+            <div class="mini-grid">
+              <div class="mini-stat"><div class="k">参与对象</div><div class="v" id="fAudience">—</div></div>
+              <div class="mini-stat"><div class="k">关键截止</div><div class="v" id="fDeadlineChip">—</div></div>
+              <div class="mini-stat"><div class="k">动作建议</div><div class="v" id="fAction">—</div></div>
+            </div>
+            <div class="section-label">关键信息提取</div>
+            <div class="key-grid">
+              <div class="key-card"><div class="k">时间安排</div><div class="v" id="fTimeInfo">—</div></div>
+              <div class="key-card"><div class="k">地点 / 平台</div><div class="v" id="fLocationInfo">—</div></div>
+              <div class="key-card"><div class="k">提交方式</div><div class="v" id="fSubmitInfo">—</div></div>
+              <div class="key-card"><div class="k">联系方式</div><div class="v" id="fContactInfo">—</div></div>
+            </div>
+            <div class="section-label">截止时间</div><div class="list-item"><div class="check">!</div><div class="item-text"><input id="fDeadline"><div class="item-meta">建议优先确认时间和时区</div></div></div>
+            <div class="section-label">关键时间轴</div><div id="timelineList" class="timeline"></div>
+            <div class="section-label">所需材料</div><div id="materials"></div>
+            <div class="section-label">待办事项</div><div id="parsedTodos"></div>
+            <div class="section-label">需要人工核对</div><div id="warningList" class="warning-list"></div>
+            <div class="section-label">原文依据</div><div id="evidenceList" class="evidence-list"></div>
+            <div class="inspo" id="inspoBlock" style="display:none">
+              <div class="inspo-head">
+                <div>
+                  <div class="inspo-title">竞赛灵感 / 选题参考</div>
+                  <div class="inspo-sub">从竞赛通知角度给你的方向启发，不代表官方要求</div>
+                </div>
+                <span class="tag blue">AI 参考</span>
+              </div>
+              <div class="idea-list" id="ideaList"></div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:9px;margin-top:20px"><button class="btn btn-light" data-page-link="home">稍后处理</button><button class="btn btn-primary" id="confirmBtn">确认并生成待办 ✓</button></div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:20px"><div class="card-head"><div><div class="card-title">针对这份通知提问</div><div class="card-sub">回答仅基于当前通知原文</div></div><span class="tag green">有依据回答</span></div><div class="chat" id="chat"><div class="bubble ai">你好！你可以问我截止时间、材料要求或参与条件。</div></div><div class="qa-box"><input id="question" placeholder="例如：需要提交哪些材料？"><button class="btn btn-primary" id="askBtn">提问</button></div></div>
+            <div class="card"><div class="card-head"><div class="card-title">原文通知</div><span class="card-sub">引用会从这里标注</span></div><div class="summary" id="originalText" style="max-height:370px;overflow:auto;white-space:pre-wrap;"></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+  <script>
+    const sample = `关于开展 2026 年“互联网+”大学生创新创业大赛校内选拔赛的通知
+
+一、参赛对象
+全校在籍本科生、研究生均可报名，鼓励跨专业组队。
+
+二、报名时间
+即日起至 2026 年 9 月 18 日 17:00。请各团队登录创新创业管理系统提交报名信息。
+
+三、提交材料
+1. 项目申报书（PDF 格式）
+2. 3 分钟项目展示视频
+3. 团队成员信息表
+
+四、重要提醒
+报名截止后将进行资格审查，校内决赛预计于 9 月下旬举行。请关注创新创业学院后续通知。
+联系人：王老师，邮箱 wang@example.edu.cn。`;
+    const key = "zhixing-mvp";
+    let state = { notices: [], todos: [], folders: [
+      { id: "all", name: "全部" },
+      { id: "competition", name: "竞赛" },
+      { id: "scholarship", name: "奖学金" },
+      { id: "club", name: "社团" },
+      { id: "academic", name: "教务" },
+      { id: "other", name: "其他" }
+    ] };
+    try { state = JSON.parse(localStorage.getItem(key) || '{"notices":[],"todos":[]}'); } catch { localStorage.removeItem(key); }
+    state.notices ??= []; state.todos ??= []; state.folders ??= [
+      { id: "all", name: "全部" },
+      { id: "competition", name: "竞赛" },
+      { id: "scholarship", name: "奖学金" },
+      { id: "club", name: "社团" },
+      { id: "academic", name: "教务" },
+      { id: "other", name: "其他" }
+    ];
+    let current = null;
+    let noticeFilter = { q: "", folderId: "all" };
+    const $ = id => document.getElementById(id);
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+    const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[char]));
+    const formatDate = value => {
+      if (!value) return "待定";
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN", { month:"numeric", day:"numeric", hour:"2-digit", minute:"2-digit", hour12:false });
+    };
+    function save(){ localStorage.setItem(key, JSON.stringify(state)); updateStats(); renderRecent(); renderNotices(); renderTodos(); renderFolderBar(); renderFolderSelect(); updateGreeting(); }
+    function folderLabel(id){ return (state.folders.find(f => f.id === id) || {}).name || "未分类"; }
+    function folderIdFromType(type){ const map = { "竞赛活动":"competition", "奖学金申请":"scholarship", "社团活动":"club", "课程/教务":"academic", "其他":"other" }; return map[type] || "other"; }
+    function normalizeNoticeFolder(notice){ if (!notice.folderId) notice.folderId = folderIdFromType(notice.type); return notice; }
+    function toast(msg){ $("toast").textContent=msg; $("toast").classList.add("show"); setTimeout(()=>$("toast").classList.remove("show"),2200); }
+    function showPage(id){
+      document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
+      document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
+      const titles={notices:"通知库",todos:"本周待办",detail:"通知详情"};
+      $("pageTitle").textContent=id==="home" ? "" : (titles[id]||"校园事务 AI 助手");
+      $("pageSubTitle").textContent=id==="home" ? "把通知变成下一步行动" : "查看解析、整理待办、继续提问";
+      if(id==="home") updateGreeting();
+      if(id==="todos") renderTodos();
+      if(id==="notices") renderNotices();
+    }
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "早上好";
+      if (hour >= 12 && hour < 18) greeting = "下午好";
+      else if (hour >= 18) greeting = "晚上好";
+      const pending = state.todos.filter(t => t.status !== "done").length;
+      const soon = (() => {
+        const now = Date.now(), week = now + 7 * 86400000;
+        return state.todos.filter(t => {
+          const d = Date.parse(t.dueAt);
+          return Number.isFinite(d) && d >= now && d <= week && t.status !== "done";
+        }).length;
+      })();
+      const recentNotice = state.notices[0]?.title?.replace(/关于|通知|的通知/g, "").slice(0, 18);
+      let lead = "今天还没有待办，适合先整理一份通知";
+      if (pending >= 6) lead = `你有 ${pending} 项待办，建议先只处理最急的 3 项`;
+      else if (pending >= 3) lead = `你有 ${pending} 项待办，建议先完成最靠前的任务`;
+      else if (pending > 0) lead = `你有 ${pending} 项待办${soon ? `，其中 ${soon} 项即将截止` : ""}`;
+      if (soon >= 1 && pending > 0) lead += "，先处理临近截止的内容";
+      $("pageTitle").textContent = `${greeting}，${lead}`;
+      $("pageSubTitle").textContent = recentNotice ? `最近整理：${recentNotice}` : "把通知变成下一步行动";
+      const homeTipText = soon > 0
+        ? `优先处理 ${soon} 项即将截止的待办，避免临近时间才匆忙补材料。`
+        : pending > 0
+          ? "建议先把材料类待办整理出来，再逐项确认截止时间和提交方式。"
+          : "先拖入一份通知，AI 会帮你提炼重点、生成待办，并给出竞赛灵感。";
+      $("homeTipText").textContent = homeTipText;
+      $("timeLabel").textContent = new Date().toLocaleString("zh-CN", { weekday:"short", month:"short", day:"2-digit", year:"numeric" }).replace(/,/g, " ·");
+      if (document.querySelector(".page.active")?.id !== "home") {
+        $("pageTitle").textContent = "校园事务 AI 助手";
+        $("pageSubTitle").textContent = "查看解析、整理待办、继续提问";
+      }
+    }
+    document.querySelectorAll("[data-page-link]").forEach(b=>b.onclick=()=>showPage(b.dataset.pageLink));
+    document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+    $("noticeInput").addEventListener("input",e=>$("charCount").textContent=e.target.value.length+" 字 · 可开始解析");
+    $("noticeSearch").addEventListener("input", e => { noticeFilter.q = e.target.value.trim().toLowerCase(); renderNotices(); });
+    $("clearSearch").onclick = () => { $("noticeSearch").value = ""; noticeFilter.q = ""; noticeFilter.folderId = "all"; renderNotices(); renderFolderBar(); };
+    $("addFolderBtn").onclick = () => {
+      const name = prompt("输入新文件夹名称：");
+      if (!name) return;
+      const trimmed = name.trim();
+      if (!trimmed) return;
+      const id = "folder_" + Date.now();
+      state.folders.push({ id, name: trimmed });
+      noticeFilter.folderId = id;
+      save();
+    };
+    const dropzone = $("dropzone"), fileInput = $("fileInput");
+    $("chooseFile").onclick = () => fileInput.click();
+    ["dragenter","dragover"].forEach(type => dropzone.addEventListener(type, e => { e.preventDefault(); dropzone.classList.add("dragover"); }));
+    ["dragleave","drop"].forEach(type => dropzone.addEventListener(type, e => { e.preventDefault(); dropzone.classList.remove("dragover"); }));
+    dropzone.addEventListener("drop", e => { const file = e.dataTransfer.files[0]; if (file) loadNoticeFile(file); });
+    fileInput.addEventListener("change", e => { const file = e.target.files[0]; if (file) loadNoticeFile(file); });
+    function handleExtractedText(text, fileName) {
+      const cleaned = String(text || "").trim();
+      if (!cleaned) throw new Error("文件中没有提取到可用文字，可能是扫描件或图片型文件");
+      $("noticeInput").value = cleaned;
+      $("charCount").textContent = cleaned.length + " 字 · 正在自动解析";
+      $("dropTitle").textContent = fileName || "已读取通知内容";
+      $("dropHelp").innerHTML = '<span class="file-name">内容已提取，正在打开解析结果…</span>';
+      setTimeout(() => {
+        openDetail(parseNotice(cleaned));
+        toast("文件已提取并完成初步解析");
+      }, 250);
+    }
+    const tidy = s => String(s || "").replace(/\s+/g, " ").replace(/[：:]\s*/g, "：").trim();
+    function pickMatch(text, patterns) {
+      for (const pattern of patterns) {
+        const m = text.match(pattern);
+        if (m) return tidy(m[1] || m[0]);
+      }
+      return "";
+    }
+    function collectSection(lines, labels) {
+      const index = lines.findIndex(line => labels.some(label => line.includes(label)));
+      if (index < 0) return "";
+      const collected = [];
+      for (let i = index; i < lines.length; i++) {
+        const line = lines[i];
+        if (i > index && /^[一二三四五六七八九十]+[、.]/.test(line) && labels.every(label => !line.includes(label))) break;
+        if (i > index && /^(联系人|联系方式|备注|说明|附件|附：)/.test(line) && collected.length) break;
+        if (i > index) collected.push(line);
+      }
+      return collected.join("\n");
+    }
+    function splitItems(text) {
+      return String(text || "")
+        .split(/\n+/)
+        .map(line => line.trim().replace(/^[\d一二三四五六七八九十]+[\.、）\)]\s*/, ""))
+        .map(line => line.replace(/^[•·\-*]\s*/, ""))
+        .filter(Boolean);
+    }
+    function extractMaterials(text, lines) {
+      const section = collectSection(lines, ["提交材料", "所需材料", "材料要求", "报送材料", "申请材料", "准备材料"]);
+      const raw = section ? splitItems(section) : [];
+      const fallback = lines.filter(line => /(材料|申报书|表格|附件|作品|证明|视频|照片|简历|报告|计划书|海报)/.test(line));
+      const items = (raw.length ? raw : fallback).filter(line => line.length > 4).slice(0, 8);
+      return items.length ? items : ["待从原文中补充材料清单"];
+    }
+    function extractKeyInfo(text, lines) {
+      const timePatterns = [
+        /(?:时间安排|活动时间|报名时间|提交时间|截止时间|时间|日期)[：: ]*([^\n。；]+)/,
+        /(?:即日起至[^\n。；]+)/,
+        /(?:\d{4}年\s*\d{1,2}月\s*\d{1,2}日[^\n。；]*)/,
+        /(?:\d{1,2}月\s*\d{1,2}日[^\n。；]*)/
+      ];
+      const locationPatterns = [
+        /(?:地点|活动地点|比赛地点|会议地点|举办地点|提交地点|地址|平台|系统|网址)[：: ]*([^\n。；]+)/,
+        /(?:线上平台[：:]?[^\n。；]+)/,
+        /(?:线下[^\n。；]*?)(?:举行|进行|开展)?/
+      ];
+      const submitPatterns = [
+        /(?:提交方式|报名方式|报送方式|提交渠道|报名渠道|提交平台|报名平台)[：: ]*([^\n。；]+)/,
+        /(?:请(?:登录|通过|前往|到|在)[^\n。；]{4,}提交[^\n。；]*)/
+      ];
+      const contactPatterns = [
+        /(?:联系人|联系老师|咨询老师|联系方式|咨询电话|电话|邮箱)[：: ]*([^\n。；]+)/,
+        /(?:[\w.-]+@[\w.-]+\.[A-Za-z]{2,})/,
+        /(?:1[3-9]\d{9})/
+      ];
+      const deadline = pickMatch(text, [
+        /20\d{2}年\s*\d{1,2}月\s*\d{1,2}日(?:\s*[至到]\s*|\s+)(?:(?:\d{1,2}月\s*)?\d{1,2}日)?\s*(?:\d{1,2}时)?(?:\d{1,2}分)?/,
+        /20\d{2}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2}:\d{2})?/,
+        /即日起至[^\n。；]+/,
+        /(?:截止(?:时间)?[：: ]*[^\n。；]+)/,
+      ]);
+      const timeInfo = pickMatch(text, timePatterns) || deadline || "待人工确认";
+      const location = pickMatch(text, locationPatterns) || "待人工确认";
+      const submit = pickMatch(text, submitPatterns) || "待人工确认";
+      const contact = pickMatch(text, contactPatterns) || "待人工确认";
+      return { deadline: deadline || "待人工确认", timeInfo, location, submit, contact };
+    }
+    function extractTimeline(lines) {
+      return lines
+        .filter(line => /(时间|日期|截止|报名|提交|答辩|评审|决赛|初赛|签到|开始|结束|举行|月|日|:|：)/.test(line))
+        .filter(line => /(\d{1,2}月|\d{4}年|\d{1,2}[:：]\d{2}|截止|即日起|下旬|上旬|中旬)/.test(line))
+        .slice(0, 8)
+        .map(line => tidy(line));
+    }
+    function buildWarnings(info, materials, timeline) {
+      const warnings = [];
+      if (!info.deadline || info.deadline === "待人工确认") warnings.push("未识别到明确截止时间，请务必回到原文确认。");
+      if (!timeline.length) warnings.push("未提取到完整时间轴，可能存在图片表格或扫描件信息遗漏。");
+      if (!info.location || info.location === "待人工确认") warnings.push("地点 / 平台未明确识别，请确认是否需要线上系统或线下地点。");
+      if (!info.submit || info.submit === "待人工确认") warnings.push("提交方式未明确识别，请确认是邮箱、系统、表单还是线下提交。");
+      if (!materials.length || materials[0] === "待从原文中补充材料清单") warnings.push("材料清单不完整，请核对附件、表格和证明材料。");
+      return warnings.length ? warnings : ["关键信息已初步提取，但仍建议确认截止时间、材料格式和提交方式。"];
+    }
+    async function loadNoticeFile(file) {
+      const name = file.name.toLowerCase();
+      $("dropTitle").textContent = file.name;
+      try {
+        if (/\.(txt|md|csv|json)$/i.test(name) || file.type.startsWith("text/")) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            try { handleExtractedText(reader.result, file.name); } catch (err) { $("dropHelp").textContent = err.message; toast(err.message); }
+          };
+          reader.onerror = () => toast("文件读取失败，请尝试复制文字内容");
+          reader.readAsText(file, "UTF-8");
+          return;
+        }
+        if (name.endsWith(".pdf")) {
+          if (!window.pdfjsLib) throw new Error("PDF 解析库未加载");
+          $("dropHelp").textContent = "正在提取 PDF 文字…";
+          const pdf = await window.pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+          let text = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            text += content.items.map(item => item.str).join(" ") + "\n";
+          }
+          handleExtractedText(text, file.name);
+          return;
+        }
+        if (name.endsWith(".docx")) {
+          if (!window.mammoth) throw new Error("Word 解析库未加载");
+          $("dropHelp").textContent = "正在提取 Word 文字…";
+          const result = await window.mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() });
+          handleExtractedText(result.value, file.name);
+          return;
+        }
+        if (name.endsWith(".doc")) {
+          throw new Error("当前仅支持 .docx，不支持旧版 .doc");
+        }
+        throw new Error("当前文件格式暂不支持");
+      } catch (err) {
+        $("dropHelp").textContent = err.message || "文件解析失败";
+        toast(err.message || "文件解析失败");
+      }
+    }
+    $("noticeInput").value = sample; $("charCount").textContent = sample.length+" 字";
+    function parseNotice(text){
+      const lines = text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+      const firstLine = lines.find(Boolean) || "未命名校园通知";
+      const isCompetition = /竞赛|大赛|比赛|选拔赛|挑战杯|创新创业|创业|作品赛/.test(text);
+      const info = extractKeyInfo(text, lines);
+      const audienceMatch = pickMatch(text, [
+        /(全校[^。\n，；]*[本科生研究生]{0,8}[^。\n，；]*)/,
+        /(本科生[^。\n，；]*|研究生[^。\n，；]*|在籍学生[^。\n，；]*|各学院[^。\n，；]*|各团队[^。\n，；]*|全体师生[^。\n，；]*|适用对象[^。\n，；]*|参加对象[^。\n，；]*)/
+      ]);
+      const materialsText = collectSection(lines, ["提交材料", "所需材料", "材料要求", "报送材料", "申请材料", "准备材料"]);
+      const materialNames = extractMaterials(text, lines);
+      const materials = materialNames.map(item => [item, materialsText ? "提取自原文材料段" : "请人工核对"]);
+      const timeline = extractTimeline(lines);
+      const warnings = buildWarnings(info, materialNames, timeline);
+      const todoTitles = [
+        info.deadline && info.deadline !== "待人工确认" ? "确认截止时间并加入待办" : "补全截止时间",
+        info.submit !== "待人工确认" ? "按通知要求准备提交方式" : "确认提交方式",
+        "核对材料清单并逐项准备",
+        info.location !== "待人工确认" ? "确认地点 / 平台信息" : "确认地点或平台"
+      ];
+      const evidence = [];
+      if (info.timeInfo && info.timeInfo !== "待人工确认") evidence.push(`时间信息：${info.timeInfo}`);
+      if (info.location && info.location !== "待人工确认") evidence.push(`地点 / 平台：${info.location}`);
+      if (info.submit && info.submit !== "待人工确认") evidence.push(`提交方式：${info.submit}`);
+      if (info.contact && info.contact !== "待人工确认") evidence.push(`联系方式：${info.contact}`);
+      if (audienceMatch) evidence.push(`参与对象：${audienceMatch}`);
+      if (isCompetition) evidence.push("竞赛识别：已检测到“竞赛/大赛/选拔赛”等关键词");
+      const ideas = isCompetition ? [
+        "从“校内选拔赛”角度，先想一个能在 3 分钟内讲清楚的核心价值点。",
+        "如果需要展示视频，可以优先考虑“问题—方案—结果—应用场景”的结构。",
+        "选题尽量和校园真实场景绑定，例如效率提升、信息整理、服务同学、校园治理。",
+        "如果你已经有项目雏形，可以把它包装成“可落地、可验证、可复现”的参赛方案。"
+      ] : [];
+      const deadline = info.deadline || "待人工确认";
+      const summaryParts = [
+        isCompetition ? "这是竞赛类通知。" : "这是校园事务通知。",
+        info.timeInfo && info.timeInfo !== "待人工确认" ? `时间：${info.timeInfo}。` : "",
+        info.location && info.location !== "待人工确认" ? `地点/平台：${info.location}。` : "",
+        info.submit && info.submit !== "待人工确认" ? `提交方式：${info.submit}。` : "",
+        audienceMatch ? `对象：${audienceMatch}。` : "",
+      ].filter(Boolean);
+      const summary = summaryParts.join(" ") || "已完成基础整理，请核对关键字段。";
+      return {
+        id:"n_"+Date.now(),
+        title:firstLine.slice(0,80),
+        type:isCompetition?"竞赛活动":"其他",
+        publisher:"未识别发布单位",
+        importance:"中",
+        summary,
+        deadline,
+        timeInfo: info.timeInfo,
+        location: info.location,
+        submit: info.submit,
+        contact: info.contact,
+        audience: audienceMatch || "待人工确认",
+        action: isCompetition ? "准备参赛方案与展示材料" : "核对通知要求并继续处理",
+        materials,
+        todoTitles,
+        evidence,
+        timeline,
+        warnings,
+        ideas,
+        originalText:text,
+        createdAt:new Date().toISOString(),
+        confirmed:false,
+        folderId: folderIdFromType(isCompetition ? "竞赛活动" : "其他")
+      };
+    }
+    function openDetail(n){
+      current=normalizeNoticeFolder(n);
+      $("fTitle").value=n.title; $("fType").value=n.type; $("fPublisher").value=n.publisher; $("fImportance").value=n.importance;
+      $("fSummary").textContent=n.summary; $("fDeadline").value=n.deadline; $("fFolder").value=n.folderId || folderIdFromType(n.type);
+      $("fAudience").textContent=n.audience || "待人工确认"; $("fDeadlineChip").textContent=formatDate(n.deadline); $("fAction").textContent=n.action || "待确认";
+      $("fTimeInfo").textContent=n.timeInfo || n.deadline || "待人工确认"; $("fLocationInfo").textContent=n.location || "待人工确认"; $("fSubmitInfo").textContent=n.submit || "待人工确认"; $("fContactInfo").textContent=n.contact || "待人工确认";
+      $("originalText").textContent=n.originalText;
+      $("timelineList").innerHTML=(n.timeline && n.timeline.length ? n.timeline : [n.timeInfo || n.deadline || "暂未提取到明确时间安排"]).map(t=>`<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">${escapeHtml(t)}</div></div>`).join("");
+      $("materials").innerHTML=n.materials.map((m,i)=>`<div class="list-item"><div class="check">${i+1}</div><div class="item-text">${escapeHtml(m[0])}<div class="item-meta">${escapeHtml(m[1])}</div></div><span class="tag green">必交</span></div>`).join("");
+      $("parsedTodos").innerHTML=n.todoTitles.map((t,i)=>`<div class="list-item"><div class="check">${i+1}</div><div class="item-text"><input data-parsed="${i}" value="${escapeHtml(t)}"><div class="item-meta">完成后可在本周待办中勾选</div></div></div>`).join("");
+      $("warningList").innerHTML=(n.warnings && n.warnings.length ? n.warnings : ["建议人工核对截止时间、材料格式和提交方式。"] ).map(w=>`<div class="warning">${escapeHtml(w)}</div>`).join("");
+      $("evidenceList").innerHTML=(n.evidence && n.evidence.length ? n.evidence : ["暂未提取到明确原文依据，建议人工核对。"]).map(e=>`<div class="evidence">${escapeHtml(e)}</div>`).join("");
+      if(n.ideas && n.ideas.length){ $("inspoBlock").style.display = "block"; $("ideaList").innerHTML = n.ideas.map(i=>`<div class="idea">${escapeHtml(i)}</div>`).join(""); } else { $("inspoBlock").style.display = "none"; $("ideaList").innerHTML = ""; }
+      $("chat").innerHTML='<div class="bubble ai">你好！你可以问我截止时间、材料要求或参与条件。</div>';
+      showPage("detail");
+    }
+    $("parseBtn").onclick=()=>{ const text=$("noticeInput").value.trim(); if(text.length<20){toast("请先粘贴一段完整通知");return;} openDetail(parseNotice(text)); };
+    $("fFolder").onchange = () => { if (current) current.folderId = $("fFolder").value; };
+    $("confirmBtn").onclick=()=>{ current.title=$("fTitle").value.trim()||"未命名校园通知"; current.type=$("fType").value; current.publisher=$("fPublisher").value.trim()||"未识别发布单位"; current.importance=$("fImportance").value; current.deadline=$("fDeadline").value.trim()||"待人工确认"; current.folderId=$("fFolder").value; current.todoTitles=[...document.querySelectorAll("[data-parsed]")].map(x=>x.value.trim()).filter(Boolean); current.confirmed=true; const existingIndex=state.notices.findIndex(n=>n.id===current.id); if(existingIndex>=0) state.notices[existingIndex]=current; else state.notices.unshift(current); state.todos=state.todos.filter(t=>t.noticeId!==current.id); current.todoTitles.forEach((title,i)=>state.todos.push({id:"t_"+Date.now()+"_"+i,title,dueAt:current.deadline,noticeId:current.id,source:current.title,status:"todo"})); save(); toast("已确认，待办已生成"); setTimeout(()=>showPage("todos"),500); };
+    $("askBtn").onclick=()=>{ const q=$("question").value.trim(); if(!q||!current)return; $("chat").insertAdjacentHTML("beforeend",`<div class="bubble user">${q}</div>`); let answer="通知原文没有明确说明这一点，建议联系发布单位进一步确认。"; let quote="未找到明确原文依据"; if(/材料|准备|提交什么/.test(q)){answer="需要准备 3 项材料：项目申报书、3 分钟项目展示视频、团队成员信息表。";quote="“项目申报书（PDF 格式）\\n2. 3 分钟项目展示视频\\n3. 团队成员信息表”";} else if(/截止|什么时候|时间/.test(q)){answer="报名截止时间是 2026 年 9 月 18 日 17:00。";quote="“即日起至 2026 年 9 月 18 日 17:00。”";} else if(/谁|对象|参加|条件/.test(q)){answer="全校在籍本科生、研究生均可报名，并鼓励跨专业组队。";quote="“全校在籍本科生、研究生均可报名，鼓励跨专业组队。”";} $("chat").insertAdjacentHTML("beforeend",`<div class="bubble ai">${answer}<div class="quote">原文引用：${quote}</div></div>`); $("question").value=""; $("chat").scrollTop=$("chat").scrollHeight; };
+    $("todoFilter").onchange=renderTodos;
+    function updateStats(){ const pending=state.todos.filter(t=>t.status!=="done"); $("statTodo").textContent=pending.length; $("statDone").textContent=state.todos.filter(t=>t.status==="done").length; $("statNotice").textContent=state.notices.length; const now=Date.now(), week=now+7*86400000; const soonCount=pending.filter(t=>{const d=Date.parse(t.dueAt);return Number.isFinite(d)&&d>=now&&d<=week;}).length; $("statSoon").textContent=soonCount; $("statSoon").classList.toggle("soon-urgent", soonCount > 0); $("statSoonFoot").textContent=soonCount > 0 ? "优先处理这几项" : "未来 7 天内"; $("statSoonFoot").classList.toggle("soon-urgent-label", soonCount > 0); }
+    function renderFolderSelect(){ const el=$("fFolder"); if(!el) return; el.innerHTML=state.folders.filter(f => f.id !== "all").map(f=>`<option value="${escapeHtml(f.id)}">${escapeHtml(f.name)}</option>`).join(""); if(current) el.value=current.folderId || folderIdFromType(current.type); }
+    function renderFolderBar(){ const el=$("folderBar"); if(!el) return; const counts = {}; state.folders.forEach(f => counts[f.id] = 0); state.notices.forEach(n => { const id = normalizeNoticeFolder(n).folderId || "other"; counts[id] = (counts[id] || 0) + 1; }); const buttons = [{id:"all",name:"全部"}].concat(state.folders.filter(f => f.id !== "all")); el.innerHTML = buttons.map(f=>`<button class="folder-chip ${noticeFilter.folderId===f.id?"active":""}" data-folder="${escapeHtml(f.id)}">${escapeHtml(f.name)} <small>${f.id==="all" ? state.notices.length : (counts[f.id]||0)}</small></button>`).join(""); el.querySelectorAll("[data-folder]").forEach(b=>b.onclick=()=>{ noticeFilter.folderId = b.dataset.folder; renderNotices(); renderFolderBar(); }); }
+    function renderRecent(){ const el=$("recentNotices"); if(!state.notices.length){el.innerHTML='<div class="empty">还没有整理过通知<br>从左侧粘贴一段通知开始吧</div>';return;} el.innerHTML=state.notices.slice(0,4).map(n=>{const folder = folderLabel(normalizeNoticeFolder(n).folderId); return `<div class="notice-row" data-open="${escapeHtml(n.id)}"><div class="notice-icon">▤</div><div class="notice-main"><div class="notice-name">${escapeHtml(n.title)}</div><div class="notice-meta">${escapeHtml(n.publisher)} · ${escapeHtml(folder)} · 截止 ${escapeHtml(formatDate(n.deadline))}</div></div><span class="tag ${n.importance==="高"?"red":"yellow"}">${escapeHtml(n.importance)}重要</span></div>`;}).join(""); el.querySelectorAll("[data-open]").forEach(x=>x.onclick=()=>openDetail(state.notices.find(n=>n.id===x.dataset.open))); }
+    function renderNotices(){ const el=$("noticeList"); let notices = state.notices.map(normalizeNoticeFolder); if (noticeFilter.folderId !== "all") notices = notices.filter(n => (n.folderId || "other") === noticeFilter.folderId); if (noticeFilter.q) { const q = noticeFilter.q; notices = notices.filter(n => [n.title, n.publisher, n.summary, n.type, n.action, n.timeInfo, n.location, n.submit, n.contact, ...(n.materials||[]).flat(), ...(n.todoTitles||[])].join(" ").toLowerCase().includes(q)); } if(!notices.length){el.innerHTML='<div class="empty">没有符合条件的通知<br>试试换个关键词或文件夹</div>';return;} el.innerHTML=notices.map(n=>`<div class="notice-row" data-open="${escapeHtml(n.id)}"><div class="notice-icon">▤</div><div class="notice-main"><div class="notice-name">${escapeHtml(n.title)}</div><div class="notice-meta">${escapeHtml(n.publisher)} · ${escapeHtml(folderLabel(n.folderId))} · ${n.materials.length} 项材料 · ${n.todoTitles.length} 项待办</div></div><span class="tag ${n.confirmed?"green":"yellow"}">${n.confirmed?"已确认":"待确认"}</span></div>`).join(""); el.querySelectorAll("[data-open]").forEach(x=>x.onclick=()=>openDetail(state.notices.find(n=>n.id===x.dataset.open))); }
+    function renderTodos(){ const el=$("todoList"); let list=state.todos; const f=$("todoFilter").value; if(f!=="all")list=list.filter(t=>f==="done"?t.status==="done":t.status!=="done"); if(!list.length){el.innerHTML='<div class="empty">没有符合条件的待办事项</div>';return;} const groups={}; list.forEach(t=>(groups[t.dueAt||"待定"]??=[]).push(t)); const now=Date.now(), week=now+7*86400000; el.innerHTML=Object.entries(groups).map(([date,items])=>`<div class="todo-date">${escapeHtml(formatDate(date))}<span class="card-sub" style="font-weight:400;margin-left:8px">${items.length} 项</span></div>${items.map(t=>{const due=Date.parse(t.dueAt); const urgent=Number.isFinite(due)&&due>=now&&due<=week&&t.status!=="done"; return `<div class="todo-line"><button class="check ${t.status==="done"?"done":""}" data-todo="${escapeHtml(t.id)}">${t.status==="done"?"✓":""}</button><div class="todo-title ${t.status==="done"?"done-text":""}">${escapeHtml(t.title)}<div class="todo-source">来自：${escapeHtml(t.source)}</div></div><span class="tag ${t.status==="done"?"green":urgent?"red":"yellow"}">${t.status==="done"?"已完成":urgent?"即将截止":"待完成"}</span></div>`;}).join("")}`).join(""); el.querySelectorAll("[data-todo]").forEach(b=>b.onclick=()=>{const t=state.todos.find(x=>x.id===b.dataset.todo);if(t)t.status=t.status==="done"?"todo":"done";save();}); }
+    $("clearData").onclick=()=>{if(confirm("确定清空本地保存的通知和待办吗？")){state={notices:[],todos:[],folders:[{id:"all",name:"全部"},{id:"competition",name:"竞赛"},{id:"scholarship",name:"奖学金"},{id:"club",name:"社团"},{id:"academic",name:"教务"},{id:"other",name:"其他"}]};noticeFilter={q:"",folderId:"all"};$("noticeSearch").value="";save();toast("本地数据已清空");}};
+    updateGreeting();
+    setInterval(updateGreeting, 60_000);
+    updateStats(); renderRecent(); renderFolderBar(); renderFolderSelect(); renderNotices(); renderTodos();
+  </script>
+</body>
+</html>
